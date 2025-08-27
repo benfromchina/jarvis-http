@@ -1,3 +1,8 @@
+[![](https://img.shields.io/badge/Maven%20Central-v1.0.0-brightgreen)](https://central.sonatype.com/artifact/io.github.benfromchina/jarvis-http/1.0.0)
+[![](https://img.shields.io/badge/Release-v1.0.0-blue)](https://gitee.com/jarvis-lib/jarvis-http/releases/v1.0.0)
+[![](https://img.shields.io/badge/License-Apache--2.0-9cf)](https://www.apache.org/licenses/LICENSE-2.0.html)
+[![](https://img.shields.io/badge/JDK-8+-9cf)]()
+
 # Jarvis-HTTP
 
 Jarvis-HTTP is a Java client library designed to simplify HTTP requests and handle secure communication. It provides a comprehensive set of tools to support signed requests, response validation, data encryption, and more, making it suitable for applications that need to securely interact with HTTP services.

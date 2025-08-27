@@ -6,12 +6,12 @@
 
     <groupId>io.github.benfromchina</groupId>
     <artifactId>jarvis-http</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
 
     <name>jarvis-http</name>
-    <description>A Java-based cryptographic tool library that provides implementations of various encryption algorithms, including symmetric encryption, asymmetric encryption, signature, and verification.</description>
-    <url>https://github.com/benfromchina/jarvis-cipher</url>
+    <description>A Java client library designed to simplify HTTP requests and handle secure communication. It provides a comprehensive set of tools to support signed requests, response validation, data encryption, and more, making it suitable for applications that need to securely interact with HTTP services.</description>
+    <url>https://github.com/benfromchina/jarvis-http</url>
 
     <modules>
         <module>jarvis-http-core</module>
@@ -26,13 +26,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- jars -->
+        <central-publishing-maven-plugin.version>0.7.0</central-publishing-maven-plugin.version>
         <forest.version>1.7.3</forest.version>
         <jackson.version>2.19.2</jackson.version>
         <jarvis-cipher.version>1.0.0</jarvis-cipher.version>
-        <jarvis-http.version>1.0.0-SNAPSHOT</jarvis-http.version>
+        <jarvis-http.version>1.0.0</jarvis-http.version>
         <junit.version>5.13.4</junit.version>
         <lombok.version>1.18.38</lombok.version>
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+        <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
         <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
         <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
         <okhttp.version>4.12.0</okhttp.version>
@@ -150,6 +152,31 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>${central-publishing-maven-plugin.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>${maven-gpg-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 
     <developers>

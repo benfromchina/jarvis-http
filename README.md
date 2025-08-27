@@ -1,3 +1,8 @@
+[![](https://img.shields.io/badge/Maven%20Central-v1.0.0-brightgreen)](https://central.sonatype.com/artifact/io.github.benfromchina/jarvis-http/1.0.0)
+[![](https://img.shields.io/badge/Release-v1.0.0-blue)](https://gitee.com/jarvis-lib/jarvis-http/releases/v1.0.0)
+[![](https://img.shields.io/badge/License-Apache--2.0-9cf)](https://www.apache.org/licenses/LICENSE-2.0.html)
+[![](https://img.shields.io/badge/JDK-8+-9cf)]()
+
 # Jarvis-HTTP
 
 Jarvis-HTTP 是一个用于简化 HTTP 请求和处理安全通信的 Java 客户端库。它提供了一套完整的工具来支持签名请求、响应验证、数据加密等功能，适用于需要与 HTTP 服务进行安全交互的应用场景。

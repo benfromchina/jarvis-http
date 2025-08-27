@@ -7,10 +7,14 @@
     <parent>
         <groupId>io.github.benfromchina</groupId>
         <artifactId>jarvis-http</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
     </parent>
 
     <artifactId>jarvis-http-client</artifactId>
+
+    <name>jarvis-http-client</name>
+    <description>Based on the Forest framework, supports automated HTTP client generation.</description>
+    <url>https://github.com/benfromchina/jarvis-http</url>
 
     <dependencies>
         <dependency>
