@@ -7,7 +7,7 @@
     <parent>
         <groupId>io.github.benfromchina</groupId>
         <artifactId>jarvis-http</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.0.1</version>
     </parent>
 
     <artifactId>jarvis-http-core</artifactId>
