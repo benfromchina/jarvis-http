@@ -10,17 +10,17 @@ package com.stark.jarvis.http.sign.constant;
 public interface SystemPropertyConsts {
 
     /**
-     * 签名请求头前缀
+     * 签名请求头前缀，如 "Jarvis-"，默认为空
      */
     String SIGN_HEADER_PREFIX = "sign.header.prefix";
 
     /**
-     * 签名算法前缀
+     * 签名算法前缀，如 "JARVIS-"，默认为空
      */
     String SIGN_ALGORITHM_PREFIX = "sign.algorithm.prefix";
 
     /**
-     * 签名随机字符串长度
+     * 签名随机字符串长度，默认32
      */
     String SIGN_NONCE_LENGTH = "sign.nonce.length";
 

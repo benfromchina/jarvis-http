@@ -10,7 +10,7 @@ import com.stark.jarvis.cipher.core.AeadAlgorithm;
 import com.stark.jarvis.cipher.core.aead.AeadCipher;
 import com.stark.jarvis.cipher.rsa.aead.AeadAesCipher;
 import com.stark.jarvis.cipher.sm.aead.AeadSM4Cipher;
-import com.stark.jarvis.http.client.constant.SystemPropertyConsts;
+import com.stark.jarvis.http.client.constant.SystemConsts;
 import com.stark.jarvis.http.client.util.JacksonUtils;
 import com.stark.jarvis.http.sign.util.NonceUtils;
 import lombok.AllArgsConstructor;
@@ -37,17 +37,15 @@ public class EncryptDataSerializer extends JsonSerializer<Object> implements Con
     public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
         String plaintext = JacksonUtils.serializeNonNullNonEmpty(value);
 
-        AeadAlgorithm algorithm = AeadAlgorithm.valueOf(System.getProperty(SystemPropertyConsts.CLIENT_AEAD_ALGORITHM));
-        String key = System.getProperty(SystemPropertyConsts.CLIENT_AEAD_KEY);
-        AeadCipher cipher = AeadAlgorithm.SM4.equals(algorithm)
-                ? new AeadSM4Cipher(key.getBytes(StandardCharsets.UTF_8))
-                : new AeadAesCipher(key.getBytes(StandardCharsets.UTF_8));
+        AeadCipher cipher = AeadAlgorithm.SM4.equals(SystemConsts.CLIENT_AEAD_ALGORITHM)
+                ? new AeadSM4Cipher(SystemConsts.CLIENT_AEAD_KEY.getBytes(StandardCharsets.UTF_8))
+                : new AeadAesCipher(SystemConsts.CLIENT_AEAD_KEY.getBytes(StandardCharsets.UTF_8));
         String nonce = NonceUtils.createNonce(16);
         String ciphertext = cipher.encrypt(
                 associatedData != null ? associatedData.getBytes(StandardCharsets.UTF_8) : null,
                 nonce.getBytes(StandardCharsets.UTF_8),
                 plaintext.getBytes(StandardCharsets.UTF_8));
-        EncryptData encryptData = new EncryptData(algorithm, nonce, associatedData, ciphertext);
+        EncryptData encryptData = new EncryptData(SystemConsts.CLIENT_AEAD_ALGORITHM, nonce, associatedData, ciphertext);
         gen.writeObject(encryptData);
     }
 

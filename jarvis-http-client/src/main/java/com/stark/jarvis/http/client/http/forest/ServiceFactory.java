@@ -11,7 +11,10 @@ import com.dtflys.forest.interceptor.Interceptor;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.stark.jarvis.cipher.core.AsymmetricAlgorithm;
 import com.stark.jarvis.http.client.config.Config;
+import com.stark.jarvis.http.client.config.RSAConfig;
+import com.stark.jarvis.http.client.config.SM2Config;
 import com.stark.jarvis.http.client.constant.SystemConsts;
 import com.stark.jarvis.http.client.util.JacksonUtils;
 import lombok.Builder;
@@ -35,7 +38,7 @@ public class ServiceFactory {
     /**
      * 配置类
      */
-    private Config config;
+    private static final Config clientConfig;
 
     /**
      * 连接超时时间，单位毫秒
@@ -53,9 +56,29 @@ public class ServiceFactory {
     private Integer maxRetryCount;
 
     /**
-     * 最大请求重试之间的时间间隔，单位为毫
+     * 最大请求重试之间的时间间隔，单位为毫秒
      */
     private Long maxRetryInterval;
+
+    static {
+        if (AsymmetricAlgorithm.SM2.equals(SystemConsts.CLIENT_ASYMMETRIC_ALGORITHM)) {
+            clientConfig = new SM2Config.Builder()
+                    .clientId(SystemConsts.CLIENT_ID)
+                    .clientSecret(SystemConsts.CLIENT_SECRET)
+                    .clientCert(SystemConsts.CLIENT_CERT)
+                    .clientPrivateKey(SystemConsts.CLIENT_PRIVATE_KEY)
+                    .serverPublicKey(SystemConsts.SERVER_PUBLIC_KEY)
+                    .build();
+        } else {
+            clientConfig = new RSAConfig.Builder()
+                    .clientId(SystemConsts.CLIENT_ID)
+                    .clientSecret(SystemConsts.CLIENT_SECRET)
+                    .clientCert(SystemConsts.CLIENT_CERT)
+                    .clientPrivateKey(SystemConsts.CLIENT_PRIVATE_KEY)
+                    .serverPublicKey(SystemConsts.SERVER_PUBLIC_KEY)
+                    .build();
+        }
+    }
 
     /**
      * 创建请求接口的动态代理实例
@@ -91,7 +114,7 @@ public class ServiceFactory {
         interceptors.add(ValidateResponseInterceptor.class);
         config.setInterceptors(interceptors);
 
-        config.setVariable("config", this.config);
+        config.setVariable("config", clientConfig);
         config.setVariable("userAgent", getUserAgent(clazz, config));
         return config.client(clazz);
     }
@@ -102,8 +125,8 @@ public class ServiceFactory {
                 StringUtils.defaultIfBlank(clazz.getPackage().getImplementationVersion(), "Unknown"),
                 SystemConsts.OS,
                 StringUtils.defaultIfBlank(SystemConsts.JAVA_VERSION, "Unknown"),
-                this.config.getClientCredential().getClass().getSimpleName(),
-                this.config.getServerResponseValidator().getClass().getSimpleName(),
+                clientConfig.getClientCredential().getClass().getSimpleName(),
+                clientConfig.getServerResponseValidator().getClass().getSimpleName(),
                 getHttpClientInfo(config.getBackend()));
     }
 

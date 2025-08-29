@@ -7,7 +7,7 @@ import com.stark.jarvis.cipher.core.AeadAlgorithm;
 import com.stark.jarvis.cipher.core.aead.AeadCipher;
 import com.stark.jarvis.cipher.rsa.aead.AeadAesCipher;
 import com.stark.jarvis.cipher.sm.aead.AeadSM4Cipher;
-import com.stark.jarvis.http.client.constant.SystemPropertyConsts;
+import com.stark.jarvis.http.client.constant.SystemConsts;
 import com.stark.jarvis.http.client.util.JacksonUtils;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -34,10 +34,9 @@ public class EncryptDataDeserializer extends JsonDeserializer<Object> implements
         JsonNode node = p.getCodec().readTree(p);
         String ciphertext = node.toPrettyString();
         EncryptData encryptData = JacksonUtils.deserialize(ciphertext, EncryptData.class);
-        String key = System.getProperty(SystemPropertyConsts.CLIENT_AEAD_KEY);
         AeadCipher cipher = AeadAlgorithm.SM4.equals(encryptData.getAlgorithm())
-                ? new AeadSM4Cipher(key.getBytes(StandardCharsets.UTF_8))
-                : new AeadAesCipher(key.getBytes(StandardCharsets.UTF_8));
+                ? new AeadSM4Cipher(SystemConsts.CLIENT_AEAD_KEY.getBytes(StandardCharsets.UTF_8))
+                : new AeadAesCipher(SystemConsts.CLIENT_AEAD_KEY.getBytes(StandardCharsets.UTF_8));
         String plaintext = cipher.decrypt(
                 encryptData.getAssociatedData() != null ? encryptData.getAssociatedData().getBytes(StandardCharsets.UTF_8) : null,
                 encryptData.getNonce().getBytes(StandardCharsets.UTF_8),

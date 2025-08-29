@@ -23,6 +23,8 @@ public class TestConfig {
 
     public static final String RESOURCES_DIR = System.getProperty("user.dir") + "/src/test/resources";
 
+    public static final String CLIENT_CERT_PATH = RESOURCES_DIR + "/client_crt.pem";
+
     public static final String CLIENT_PRIVATE_KEY_PATH = RESOURCES_DIR + "/client_private_key.pem";
 
     public static final String CLIENT_PUBLIC_KEY_PATH = RESOURCES_DIR + "/client_public_key.pem";
@@ -42,6 +44,7 @@ public class TestConfig {
         System.setProperty(SystemPropertyConsts.CLIENT_AEAD_ALGORITHM, AEAD_ALGORITHM.name());
         System.setProperty(SystemPropertyConsts.CLIENT_AEAD_KEY, AEAD_KEY);
         System.setProperty(SystemPropertyConsts.CLIENT_ASYMMETRIC_ALGORITHM, ASYMMETRIC_ALGORITHM.name());
+        System.setProperty(SystemPropertyConsts.CLIENT_CERT_PATH, CLIENT_CERT_PATH);
         System.setProperty(SystemPropertyConsts.CLIENT_PRIVATE_KEY_PATH, CLIENT_PRIVATE_KEY_PATH);
         System.setProperty(SystemPropertyConsts.SERVER_PUBLIC_KEY_PATH, CLIENT_PUBLIC_KEY_PATH);
     }

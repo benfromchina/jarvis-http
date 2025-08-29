@@ -17,13 +17,13 @@ import java.security.cert.X509Certificate;
 import static java.util.Objects.requireNonNull;
 
 /**
- * 国密配置
+ * 国密SM2配置
  *
  * @author <a href="mengbin@hotmail.com">Ben</a>
  * @version 1.0.0
  * @since 2025/8/14
  */
-public final class SMConfig implements Config {
+public final class SM2Config implements Config {
 
     private final String clientId;
 
@@ -35,7 +35,7 @@ public final class SMConfig implements Config {
 
     private final PublicKey serverPublicKey;
 
-    private SMConfig(Builder builder) {
+    private SM2Config(Builder builder) {
         this.clientId = requireNonNull(builder.clientId);
         this.clientSecret = requireNonNull(builder.clientSecret);
         this.clientCert = requireNonNull(builder.clientCert);
@@ -90,8 +90,8 @@ public final class SMConfig implements Config {
             return this;
         }
 
-        public Builder clientCert(String clientCert) {
-            this.clientCert = SMPemUtils.loadX509FromString(clientCert);
+        public Builder clientCert(String clientCertPem) {
+            this.clientCert = SMPemUtils.loadX509FromString(clientCertPem);
             return this;
         }
 
@@ -100,8 +100,13 @@ public final class SMConfig implements Config {
             return this;
         }
 
-        public Builder clientPrivateKey(String clientPrivateKey) {
-            this.clientPrivateKey = SMPemUtils.loadPrivateKeyFromString(clientPrivateKey);
+        public Builder clientCert(X509Certificate clientCert) {
+            this.clientCert = clientCert;
+            return this;
+        }
+
+        public Builder clientPrivateKey(String clientPrivateKeyPem) {
+            this.clientPrivateKey = SMPemUtils.loadPrivateKeyFromString(clientPrivateKeyPem);
             return this;
         }
 
@@ -110,8 +115,13 @@ public final class SMConfig implements Config {
             return this;
         }
 
-        public Builder serverPublicKey(String serverPublicKey) {
-            this.serverPublicKey = SMPemUtils.loadPublicKeyFromString(serverPublicKey);
+        public Builder clientPrivateKey(PrivateKey clientPrivateKey) {
+            this.clientPrivateKey = clientPrivateKey;
+            return this;
+        }
+
+        public Builder serverPublicKey(String serverPublicKeyPem) {
+            this.serverPublicKey = SMPemUtils.loadPublicKeyFromString(serverPublicKeyPem);
             return this;
         }
 
@@ -120,8 +130,13 @@ public final class SMConfig implements Config {
             return this;
         }
 
-        public SMConfig build() {
-            return new SMConfig(this);
+        public Builder serverPublicKey(PublicKey serverPublicKey) {
+            this.serverPublicKey = serverPublicKey;
+            return this;
+        }
+
+        public SM2Config build() {
+            return new SM2Config(this);
         }
     }
 

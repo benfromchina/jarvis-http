@@ -1,5 +1,8 @@
 package com.stark.jarvis.http.client.constant;
 
+import com.stark.jarvis.cipher.core.AeadAlgorithm;
+import com.stark.jarvis.cipher.core.AsymmetricAlgorithm;
+
 /**
  * 系统参数常量
  *
@@ -12,15 +15,15 @@ public interface SystemPropertyConsts extends com.stark.jarvis.http.sign.constan
     /**
      * 客户端ID
      */
-    String CLIENT_ID = "client.client_id";
+    String CLIENT_ID = "client.id";
 
     /**
      * 客户端秘钥
      */
-    String CLIENT_SECRET = "client.client_secret";
+    String CLIENT_SECRET = "client.secret";
 
     /**
-     * 客户端对称加密算法
+     * 客户端对称加密算法：{@link AeadAlgorithm#AES AES} 或 {@link AeadAlgorithm#SM4 SM4}
      */
     String CLIENT_AEAD_ALGORITHM = "client.aead_algorithm";
 
@@ -30,22 +33,22 @@ public interface SystemPropertyConsts extends com.stark.jarvis.http.sign.constan
     String CLIENT_AEAD_KEY = "client.aead_key";
 
     /**
-     * 客户端非对称加密算法
+     * 客户端非对称加密算法：{@link AsymmetricAlgorithm#RSA RSA} 或 {@link AsymmetricAlgorithm#SM2 SM2}
      */
     String CLIENT_ASYMMETRIC_ALGORITHM = "client.asymmetric_algorithm";
 
     /**
-     * 客户端证书路径
+     * 客户端证书路径，"classpath:" 开头或绝对路径
      */
-    String CLIENT_CERT_PATH = "client.client_cert_path";
+    String CLIENT_CERT_PATH = "client.cert.path";
 
     /**
-     * 客户端私钥路径
+     * 客户端私钥路径，"classpath:" 开头或绝对路径
      */
     String CLIENT_PRIVATE_KEY_PATH = "client.private_key.path";
 
     /**
-     * 服务端公钥路径
+     * 服务端公钥路径，"classpath:" 开头或绝对路径
      */
     String SERVER_PUBLIC_KEY_PATH = "server.public_key.path";
 
