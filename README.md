@@ -54,7 +54,8 @@ jarvis-http                 // 父模块，统一维护依赖版本、公共配�
 
 1. 构造签名串
 
-> 参考 [com.stark.jarvis.http.sign.util.SignUtils#buildClientRequestSignMessage](https://gitee.com/jarvis-lib/jarvis-http/blob/main/jarvis-http-sign/src/main/java/com/stark/jarvis/http/sign/util/SignUtils.java#L134)
+>
+参考 [com.stark.jarvis.http.sign.util.SignUtils#buildClientRequestSignMessage](https://gitee.com/jarvis-lib/jarvis-http/blob/main/jarvis-http-sign/src/main/java/com/stark/jarvis/http/sign/util/SignUtils.java#L134)
 
 签名串一共有五行，每一行为一个参数。结尾以\n（换行符，ASCII编码值为0x0A）结束，包括最后一行。如果参数本身以\n结束，也需要附加一个\n。
 
@@ -68,7 +69,8 @@ URL\n
 
 2. 计算签名值
 
-> 参考 [com.stark.jarvis.http.sign.util.SignUtils#signClientRequest](https://gitee.com/jarvis-lib/jarvis-http/blob/main/jarvis-http-sign/src/main/java/com/stark/jarvis/http/sign/util/SignUtils.java#L91)
+>
+参考 [com.stark.jarvis.http.sign.util.SignUtils#signClientRequest](https://gitee.com/jarvis-lib/jarvis-http/blob/main/jarvis-http-sign/src/main/java/com/stark/jarvis/http/sign/util/SignUtils.java#L91)
 
 3. 组织签名信息
 
@@ -121,7 +123,7 @@ Authorization JARVIS-SHA256-RSA2048 clientId="eastsoft",clientSecret="J8R6FRdLBT
 | client.id                   | 客户端ID                        |     | 是  |
 | client.secret               | 客户端秘钥                        |     | 是  |
 | client.aead_algorithm       | 客户端对称加密算法：AES 或 SM4          |     | 是  |
-| client.aead_algorithm       | 客户端对称加密密钥                    |     | 是  |
+| client.aead_key             | 客户端对称加密密钥                    |     | 是  |
 | client.asymmetric_algorithm | 客户端非对称加密算法：RSA 或 SM2         |     | 是  |
 | client.cert.path            | 客户端证书路径，"classpath:" 开头或绝对路径 |     | 是  |
 | client.private_key.path     | 客户端私钥路径，"classpath:" 开头或绝对路径 |     | 是  |
@@ -198,13 +200,13 @@ public interface ClientApiTestService {
 ```java
 /**
  * 测试对称加密实体类
-  */
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
 public class CertificatePayload {
-    
+
     private String id;
 
     private String name;
@@ -241,7 +243,7 @@ public class CertificatePayload {
 @AllArgsConstructor
 @Accessors(chain = true)
 public class User {
-    
+
     private Long id;
 
     /**
