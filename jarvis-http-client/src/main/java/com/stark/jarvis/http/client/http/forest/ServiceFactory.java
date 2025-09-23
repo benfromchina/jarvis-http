@@ -8,9 +8,7 @@ import com.dtflys.forest.config.ForestConfiguration;
 import com.dtflys.forest.converter.json.ForestJacksonConverter;
 import com.dtflys.forest.converter.json.ForestJsonConverter;
 import com.dtflys.forest.interceptor.Interceptor;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.stark.jarvis.cipher.core.AsymmetricAlgorithm;
 import com.stark.jarvis.http.client.config.Config;
 import com.stark.jarvis.http.client.config.RSAConfig;
@@ -34,6 +32,11 @@ import java.util.List;
  */
 @Builder
 public class ServiceFactory {
+
+    /**
+     * json 转换器
+     */
+    private static final ForestJsonConverter forestJsonConverter;
 
     /**
      * 配置类
@@ -61,6 +64,10 @@ public class ServiceFactory {
     private Long maxRetryInterval;
 
     static {
+        forestJsonConverter = new ForestJacksonConverter(JacksonUtils.createObjectMapper(true)
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false));
+
         if (AsymmetricAlgorithm.SM2.equals(SystemConsts.CLIENT_ASYMMETRIC_ALGORITHM)) {
             clientConfig = new SM2Config.Builder()
                     .clientId(SystemConsts.CLIENT_ID)
@@ -101,12 +108,6 @@ public class ServiceFactory {
         if (maxRetryInterval != null) {
             config.setMaxRetryInterval(maxRetryInterval);
         }
-
-        ObjectMapper mapper = JacksonUtils.createObjectMapper(true)
-                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
-                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-                .configure(DeserializationFeature.FAIL_ON_NULL_FOR_PRIMITIVES, false);
-        ForestJsonConverter forestJsonConverter = new ForestJacksonConverter(mapper);
         config.setJsonConverter(forestJsonConverter);
 
         List<Class<? extends Interceptor>> interceptors = new ArrayList<>();
