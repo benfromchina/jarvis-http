@@ -6,6 +6,7 @@ import com.stark.jarvis.cipher.rsa.verifier.RSAVerifier;
 import com.stark.jarvis.cipher.sm.verifier.SM2Verifier;
 import com.stark.jarvis.http.client.http.HttpHeaders;
 import com.stark.jarvis.http.sign.util.VerifyUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.security.PublicKey;
 
@@ -37,9 +38,9 @@ public final class ServerResponseValidator {
      * @return 是否验证通过
      */
     public boolean validateResponseSignature(HttpHeaders responseHeaders, String responseBody) {
-        String timestamp = responseHeaders.getHeader(HttpHeaders.TIMESTAMP);
-        String nonce = responseHeaders.getHeader(HttpHeaders.NONCE);
-        String signature = responseHeaders.getHeader(HttpHeaders.SIGNATURE);
+        String timestamp = StringUtils.defaultIfBlank(responseHeaders.getHeader(HttpHeaders.TIMESTAMP), responseHeaders.getHeader(HttpHeaders.TIMESTAMP.toLowerCase()));
+        String nonce = StringUtils.defaultIfBlank(responseHeaders.getHeader(HttpHeaders.NONCE), responseHeaders.getHeader(HttpHeaders.NONCE.toLowerCase()));
+        String signature = StringUtils.defaultIfBlank(responseHeaders.getHeader(HttpHeaders.SIGNATURE), responseHeaders.getHeader(HttpHeaders.SIGNATURE.toLowerCase()));
         return VerifyUtils.verifyServerResponseSignature(serverResponseVerifier, responseBody, Long.parseLong(timestamp), nonce, signature);
     }
 
