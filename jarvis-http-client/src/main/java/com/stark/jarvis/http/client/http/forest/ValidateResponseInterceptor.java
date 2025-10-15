@@ -9,6 +9,7 @@ import com.stark.jarvis.http.client.auth.ServerResponseValidator;
 import com.stark.jarvis.http.client.config.Config;
 import com.stark.jarvis.http.client.exception.ValidationException;
 import com.stark.jarvis.http.client.http.HttpHeaders;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 响应校验拦截器
@@ -27,7 +28,7 @@ public class ValidateResponseInterceptor implements ForestInterceptor {
             ServerResponseValidator serverResponseValidator = config.getServerResponseValidator();
             boolean isValid = serverResponseValidator.validateResponseSignature(new HttpHeaders(response.getHeaders()), responseBody);
             if (!isValid) {
-                String requestId = response.getHeaderValue(HttpHeaders.REQUEST_ID);
+                String requestId = StringUtils.defaultIfBlank(response.getHeaderValue(HttpHeaders.REQUEST_ID), response.getHeaderValue(HttpHeaders.REQUEST_ID.toLowerCase()));
                 return new ResponseError(new ValidationException(String.format("校验响应失败，服务端签名错误。%n" +
                                 "Request-ID[%s]\tresponseHeader[%s]\tresponseBody[%.1024s]",
                         requestId, response.getHeaders(), responseBody)));
