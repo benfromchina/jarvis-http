@@ -7,6 +7,7 @@ import com.dtflys.forest.multipart.ForestMultipart;
 import com.dtflys.forest.utils.ForestDataType;
 import com.stark.jarvis.http.client.config.Config;
 import com.stark.jarvis.http.client.http.MediaType;
+import com.stark.jarvis.http.client.util.ForestUtils;
 import com.stark.jarvis.http.client.util.JacksonUtils;
 import com.stark.jarvis.http.core.FileMeta;
 import com.stark.jarvis.http.core.HttpMethod;
@@ -49,7 +50,7 @@ public class SignRequestInterceptor implements ForestInterceptor {
         }
 
         Config config = (Config) request.getConfiguration().getVariable("config").getValue(request);
-        String authorization = config.getClientCredential().getAuthorization(HttpMethod.valueOf(httpMethod), request.getURI(), requestBody);
+        String authorization = config.getClientCredential().getAuthorization(HttpMethod.valueOf(httpMethod), ForestUtils.getURI(request), requestBody);
         request.addHeader("Authorization", authorization);
 
         String userAgent = (String) request.getConfiguration().getVariable("userAgent").getValue(request);
