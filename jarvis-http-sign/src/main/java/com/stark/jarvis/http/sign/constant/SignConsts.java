@@ -29,4 +29,14 @@ public final class SignConsts {
      */
     public static final int SIGN_EXPIRED_MINUTES = Integer.parseInt(System.getProperty(SystemPropertyConsts.SIGN_EXPIRED_MINUTES, "5"));
 
+    /**
+     * 控制台打印客户端请求签名信息，默认 true
+     */
+    public static final boolean STDOUT_SIGN_CLIENT_REQUEST = "true".equalsIgnoreCase(System.getProperty(SystemPropertyConsts.STDOUT_SIGN_CLIENT_REQUEST, "true"));
+
+    /**
+     * 控制台打印服务端响应签名信息，默认 true
+     */
+    public static final boolean STDOUT_SIGN_SERVER_RESPONSE = "true".equalsIgnoreCase(System.getProperty(SystemPropertyConsts.STDOUT_SIGN_SERVER_RESPONSE, "true"));
+
 }

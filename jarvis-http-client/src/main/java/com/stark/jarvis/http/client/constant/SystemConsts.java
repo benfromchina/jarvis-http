@@ -106,6 +106,16 @@ public final class SystemConsts {
      */
     public static final int SIGN_EXPIRED_MINUTES;
 
+    /**
+     * 控制台打印客户端请求签名信息
+     */
+    public static final boolean STDOUT_SIGN_CLIENT_REQUEST;
+
+    /**
+     * 控制台打印服务端响应签名信息
+     */
+    public static final boolean STDOUT_SIGN_SERVER_RESPONSE;
+
     static {
         String logmsg = "-->加载环境变量参数：";
 
@@ -160,6 +170,12 @@ public final class SystemConsts {
 
         SIGN_EXPIRED_MINUTES = SignConsts.SIGN_EXPIRED_MINUTES;
         logmsg += "\n   签名过期分钟数: " + SIGN_EXPIRED_MINUTES;
+
+        STDOUT_SIGN_CLIENT_REQUEST = SignConsts.STDOUT_SIGN_CLIENT_REQUEST;
+        logmsg += "\n   控制台打印客户端请求签名信息: " + STDOUT_SIGN_CLIENT_REQUEST;
+
+        STDOUT_SIGN_SERVER_RESPONSE = SignConsts.STDOUT_SIGN_SERVER_RESPONSE;
+        logmsg += "\n   控制台打印服务端响应签名信息: " + STDOUT_SIGN_SERVER_RESPONSE;
 
         log.warn("\n{}\n", logmsg);
     }

@@ -33,18 +33,20 @@ jarvis-http                 // 父模块，统一维护依赖版本、公共配�
 <dependency>
     <groupId>com.stark.jarvis</groupId>
     <artifactId>jarvis-http-sign</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
 </dependency>
 ```
 
 ### 环境变量配置
 
-| 变量名                   | 含义                  | 默认值 | 必填 |
-|:----------------------|:--------------------|:---:|:--:|
-| sign.header.prefix    | 签名请求头前缀，如 "Jarvis-" |     | 否  |
-| sign.algorithm.prefix | 签名算法前缀，如 "JARVIS-"  |     | 否  |
-| sign.nonce.length     | 签名随机字符串长度           | 32  | 否  |
-| sign.expired.minutes  | 签名过期分钟数             |  5  | 否  |
+| 变量名                         | 含义                  | 默认值  | 必填 |
+|:----------------------------|:--------------------|:----:|:--:|
+| sign.header.prefix          | 签名请求头前缀，如 "Jarvis-" |      | 否  |
+| sign.algorithm.prefix       | 签名算法前缀，如 "JARVIS-"  |      | 否  |
+| sign.nonce.length           | 签名随机字符串长度           |  32  | 否  |
+| sign.expired.minutes        | 签名过期分钟数             |  5   | 否  |
+| stdout.sign_client_request  | 控制台打印客户端请求签名信息      | true | 否  |
+| stdout.sign_server_response | 控制台打印服务端响应签名信息      | true | 否  |
 
 ### 流程准备
 
@@ -112,7 +114,7 @@ Authorization JARVIS-SHA256-RSA2048 clientId="eastsoft",clientSecret="J8R6FRdLBT
 <dependency>
     <groupId>com.stark.jarvis</groupId>
     <artifactId>jarvis-http-client</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
 </dependency>
 ```
 
@@ -128,6 +130,7 @@ Authorization JARVIS-SHA256-RSA2048 clientId="eastsoft",clientSecret="J8R6FRdLBT
 | client.cert.path            | 客户端证书路径，"classpath:" 开头或绝对路径 |     | 是  |
 | client.private_key.path     | 客户端私钥路径，"classpath:" 开头或绝对路径 |     | 是  |
 | server.public_key.path      | 服务端公钥路径，"classpath:" 开头或绝对路径 |     | 是  |
+
 
 ### 使用示例
 

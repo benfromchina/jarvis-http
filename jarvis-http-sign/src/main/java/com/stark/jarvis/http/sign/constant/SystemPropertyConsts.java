@@ -29,4 +29,14 @@ public interface SystemPropertyConsts {
      */
     String SIGN_EXPIRED_MINUTES = "sign.expired.minutes";
 
+    /**
+     * 控制台打印客户端请求签名信息
+     */
+    String STDOUT_SIGN_CLIENT_REQUEST = "stdout.sign_client_request";
+
+    /**
+     * 控制台打印服务端响应签名信息
+     */
+    String STDOUT_SIGN_SERVER_RESPONSE = "stdout.sign_server_response";
+
 }

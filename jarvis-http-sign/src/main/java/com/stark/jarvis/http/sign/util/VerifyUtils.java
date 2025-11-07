@@ -51,7 +51,7 @@ public class VerifyUtils {
         if (!result) {
             if (log.isDebugEnabled()) {
                 log.debug("客户端请求签名校验失败: message=\n{}", message);
-            } else {
+            } else if (SignConsts.STDOUT_SIGN_CLIENT_REQUEST) {
                 System.out.println("-->客户端请求签名校验失败: message=\n" + message);
             }
         }
@@ -83,7 +83,7 @@ public class VerifyUtils {
         if (!result) {
             if (log.isDebugEnabled()) {
                 log.debug("服务端响应签名校验失败: message=\n{}", message);
-            } else {
+            } else if (SignConsts.STDOUT_SIGN_SERVER_RESPONSE) {
                 System.out.println("-->服务端响应签名校验失败: message=\n" + message);
             }
         }

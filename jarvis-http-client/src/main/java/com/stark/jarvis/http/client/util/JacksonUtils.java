@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  */
 public class JacksonUtils {
 
-    private static final Module LONG_TO_STRING_MODULE = new SimpleModule()
+    private static final com.fasterxml.jackson.databind.Module LONG_TO_STRING_MODULE = new SimpleModule()
             .addSerializer(Long.class, ToStringSerializer.instance)
             .addSerializer(Long.TYPE, ToStringSerializer.instance);
 
@@ -47,7 +47,7 @@ public class JacksonUtils {
     public static ObjectMapper createObjectMapper(boolean findModules) {
         ObjectMapper objectMapper = new ObjectMapper();
         if (findModules) {
-            List<Module> modules = ObjectMapper.findModules()
+            List<com.fasterxml.jackson.databind.Module> modules = ObjectMapper.findModules()
                     .stream()
                     .filter(module -> !"com.fasterxml.jackson.module.afterburner.AfterburnerModule".equals(module.getClass().getName()))
                     .collect(Collectors.toList());
@@ -58,7 +58,7 @@ public class JacksonUtils {
 
                 try {
                     Class<?> clazz = Class.forName("org.springframework.cloud.openfeign.support.PageJacksonModule");
-                    objectMapper.registerModules((Module) clazz.getConstructor().newInstance());
+                    objectMapper.registerModules((com.fasterxml.jackson.databind.Module) clazz.getConstructor().newInstance());
                 } catch (ClassNotFoundException e) {
                     // do nothing
                 } catch (Exception e) {
@@ -67,7 +67,7 @@ public class JacksonUtils {
 
                 try {
                     Class<?> clazz = Class.forName("org.springframework.cloud.openfeign.support.SortJacksonModule");
-                    objectMapper.registerModules((Module) clazz.getConstructor().newInstance());
+                    objectMapper.registerModules((com.fasterxml.jackson.databind.Module) clazz.getConstructor().newInstance());
                 } catch (ClassNotFoundException e) {
                     // do nothing
                 } catch (Exception e) {
