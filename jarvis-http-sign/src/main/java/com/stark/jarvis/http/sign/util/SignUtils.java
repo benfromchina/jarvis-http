@@ -94,7 +94,7 @@ public class SignUtils {
         String message = buildClientRequestSignMessage(httpMethod, uri, requestBody, timestamp, nonce);
         if (log.isDebugEnabled()) {
             log.debug("客户端请求签名: message=\n{}", message);
-        } else {
+        } else if (SignConsts.STDOUT_SIGN_CLIENT_REQUEST) {
             System.out.println("-->客户端请求签名: message=\n" + message);
         }
         return clientRequestSigner.sign(message);
@@ -115,7 +115,7 @@ public class SignUtils {
         String message = buildServerResponseSignMessage(responseBody, timestamp, nonce);
         if (log.isDebugEnabled()) {
             log.debug("服务端响应签名: message=\n{}", message);
-        } else {
+        } else if (SignConsts.STDOUT_SIGN_SERVER_RESPONSE) {
             System.out.println("-->服务端响应签名: message=\n" + message);
         }
         return serverResponseSigner.sign(message);
